@@ -65,7 +65,7 @@ class DynatraceApi:
         get a list of all security problems from the specified environment
         makes subsequent calls to the API if the results are paged.
         """
-        return self.__querySecurityProblems('/api/v2/securityProblems?pageSize=500')
+        return self.__querySecurityProblems('/api/v2/securityProblems?from=now-24h')
    
     
     @lru_cache(maxsize=None)
@@ -257,3 +257,21 @@ class DynatraceApi:
         """Yield successive n-sized chunks from lst."""
         for i in range(0, len(lst), n):
             yield lst[i:i + n]
+
+    def getRemediationItems(self, vulnId):
+        """
+        gets the details for a vuln with remediation details
+        """
+        return self.queryApi('/api/v2/securityProblems/'+vulnId+'/remediationItems') 
+    
+    def getRemediationItemEntities(self, vulnId, remediationItemId):
+        """
+        gets the details for a vuln with remediation details
+        """
+        return self.queryApi('/api/v2/securityProblems/'+vulnId+'/remediationItems/'+remediationItemId+'/remediationProgressEntities')
+
+    def getEntities(self, entityId):
+        """
+        gets the details for a vuln with remediation details
+        """
+        return self.queryApi('/api/v2/entities/'+entityId)
