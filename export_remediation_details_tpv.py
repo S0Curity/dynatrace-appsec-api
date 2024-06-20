@@ -64,8 +64,9 @@ securityRemediationEvents = io.StringIO()
 for secP in securityProblems:
     securityProblemDetail = dynatraceApi.getSecurityProblemDetails(secP["securityProblemId"])
     securityProblemDetails.append(securityProblemDetail)
-    remediationItems = dynatraceApi.getRemediationItems(secP["securityProblemId"])
-    for remId in remediationItems["remediationItems"]:
+    if secP["vulnerabilityType"] == "THIRD_PARTY":
+      remediationItems = dynatraceApi.getRemediationItems(secP["securityProblemId"])
+      for remId in remediationItems["remediationItems"]:
         if remId["vulnerabilityState"] == "VULNERABLE":
           pgId = remId["id"]
           securityRemediationEvent = dynatraceApi.getRemediationItemEntities(secP["securityProblemId"], pgId)
@@ -73,7 +74,6 @@ for secP in securityProblems:
             for component in remItem["vulnerableComponents"]:
                 if "loadOrigins" in component:
                   loadOrigin = f"{secP['securityProblemId']};{pgId};{component['loadOrigins']};{remItem['id']};{remItem['name']}"
-                  # Keep adding more fields as required to line 75 to append and create as a single file with all details.
                   remEvent.append(loadOrigin)
 writeResultToFile('securityProblemDetails.csv', securityProblemDetails)
 writeDirectlyToFile('securityRemediationDetails.csv', remEvent)
