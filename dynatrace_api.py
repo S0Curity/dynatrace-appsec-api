@@ -65,7 +65,7 @@ class DynatraceApi:
         get a list of all security problems from the specified environment
         makes subsequent calls to the API if the results are paged.
         """
-        return self.__querySecurityProblems('/api/v2/securityProblems?from=now-24h')
+        return self.__querySecurityProblems('/api/v2/securityProblems?from=now-24h&securityProblemSelector=vulnerabilityType("THIRD_PARTY")')
    
     
     @lru_cache(maxsize=None)
