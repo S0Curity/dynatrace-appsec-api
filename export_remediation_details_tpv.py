@@ -73,7 +73,7 @@ for secP in securityProblems:
           for remItem in securityRemediationEvent["remediationProgressEntities"]:
             for component in remItem["vulnerableComponents"]:
                 if "loadOrigins" in component:
-                  loadOrigin = f"{secP['securityProblemId']};{pgId};{component['loadOrigins']};{remItem['id']};{remItem['name']}"
+                  loadOrigin = f"{secP['securityProblemId']};{secP['displayId']};{secP['status']};{secP['muted']};{secP['externalVulnerabilityId']};{secP['vulnerabilityType']};{secP['title']};{secP['packageName']};{secP['url']};{secP['technology']};{secP['firstSeenTimestamp']};{secP['lastUpdatedTimestamp']};{secP['lastOpenedTimestamp']};{secP['cveIds']};{pgId};{component['loadOrigins']};{remItem['id']};{remItem['name']}"
                   remEvent.append(loadOrigin)
 #writeResultToFile('securityProblemDetails.csv', securityProblemDetails) // Details of each vulnerability to a file
 writeDirectlyToFile('securityRemediationDetails.csv', remEvent)
