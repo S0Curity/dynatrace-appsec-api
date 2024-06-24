@@ -75,6 +75,6 @@ for secP in securityProblems:
                 if "loadOrigins" in component:
                   loadOrigin = f"{secP['securityProblemId']};{pgId};{component['loadOrigins']};{remItem['id']};{remItem['name']}"
                   remEvent.append(loadOrigin)
-writeResultToFile('securityProblemDetails.csv', securityProblemDetails)
+#writeResultToFile('securityProblemDetails.csv', securityProblemDetails) // Details of each vulnerability to a file
 writeDirectlyToFile('securityRemediationDetails.csv', remEvent)
-writeResultToFile('securityProblems.csv', securityProblems)
+#writeResultToFile('securityProblems.csv', securityProblems) // Overview with Sec ID of all open vulnerabilities
